@@ -1,6 +1,11 @@
 import { useEffect, useRef } from 'react';
 
+import PropTypes from 'prop-types';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import clsx from 'clsx';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AnimatedTitle = ({ title, containerClass }) => {
   const containerRef = useRef(null);
@@ -16,19 +21,23 @@ const AnimatedTitle = ({ title, containerClass }) => {
         },
       });
 
-      titleAnimation.to('.animated-word', {
-        opacity: 1,
-        transform: 'translate3D(0, 0, 0) rotate(0deg) rotateX(0deg)',
-        ease: 'power2.inOut',
-        stagger: 0.02,
-      });
+      titleAnimation.to(
+        '.animated-word',
+        {
+          opacity: 1,
+          transform: 'translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg)',
+          ease: 'power2.inOut',
+          stagger: 0.02,
+        },
+        0
+      );
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} className={`animated-title ${containerClass}`}>
+    <div ref={containerRef} className={clsx('animated-title', containerClass)}>
       {title.split('<br />').map((line, index) => (
         <div
           key={index}
@@ -39,12 +48,17 @@ const AnimatedTitle = ({ title, containerClass }) => {
               key={i}
               className="animated-word"
               dangerouslySetInnerHTML={{ __html: word }}
-            ></span>
+            />
           ))}
         </div>
       ))}
     </div>
   );
+};
+
+AnimatedTitle.propTypes = {
+  title: PropTypes.string.isRequired,
+  containerClass: PropTypes.string,
 };
 
 export default AnimatedTitle;

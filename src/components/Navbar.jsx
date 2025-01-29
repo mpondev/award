@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { TiLocationArrow } from 'react-icons/ti';
-
 import { useWindowScroll } from 'react-use';
 
-import Button from './Button';
 import gsap from 'gsap';
+import clsx from 'clsx';
+
+import Button from './Button';
 
 const navItems = ['Nexus', 'Vault', 'Prologue', 'About', 'Contact'];
 
 const Navbar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
+
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(true);
 
@@ -64,6 +66,7 @@ const Navbar = () => {
         <nav className="flex size-full items-center justify-between p-4">
           <div className="flex items-center gap-7">
             <img src="/img/logo.png" alt="logo" className="w-10" />
+
             <Button
               id="product-button"
               title="Products"
@@ -74,10 +77,10 @@ const Navbar = () => {
 
           <div className="flex h-full items-center">
             <div className="hidden md:block">
-              {navItems.map(item => (
+              {navItems.map((item, index) => (
                 <a
                   href={`#${item.toLowerCase()}`}
-                  key={item}
+                  key={index}
                   className="nav-hover-btn"
                 >
                   {item}
@@ -98,9 +101,9 @@ const Navbar = () => {
               {[1, 2, 3, 4].map(bar => (
                 <div
                   key={bar}
-                  className={`indicator-line ${
-                    isIndicatorActive ? 'active' : ''
-                  }`}
+                  className={clsx('indicator-line', {
+                    active: isIndicatorActive,
+                  })}
                   style={{ animationDelay: `${bar * 0.1}s` }}
                 />
               ))}

@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import { TiLocationArrow } from 'react-icons/ti';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
-import { TiLocationArrow } from 'react-icons/ti';
 
 import Button from './Button';
 
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.registerPlugin(ScrollTrigger);
-
-function Hero() {
+const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
@@ -95,6 +94,7 @@ function Hero() {
           </div>
         </div>
       )}
+
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
@@ -168,6 +168,6 @@ function Hero() {
       </h1>
     </div>
   );
-}
+};
 
 export default Hero;
